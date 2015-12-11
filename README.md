@@ -19,7 +19,7 @@ Important App Files
 
 Mesa Interactiva
 ============================
-Permite la estimulación multisensorial en niños mediante el uso de sonido
+Permite la estimulación multisensorial en niños mediante el uso de luz y sonido; junto con la proximidad de los objetos
 
 
 
