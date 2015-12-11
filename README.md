@@ -16,6 +16,13 @@ Important App Files
 * icon.png
 * README.md
 
+
+Mesa Interactiva
+============================
+Permite la estimulación multisensorial en niños mediante el uso de sonido
+
+
+
 License Information Follows
 ---------------------------
 Copyright (c) 2014, Intel Corporation. All rights reserved.
