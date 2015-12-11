@@ -23,11 +23,28 @@ var myVolts5 = new IRProximity.GP2Y0A(5);
 
 var useUpmVersion = true;
 var mraa = require('mraa');
+var version = mraa.getVersion();
 
 // The higher the voltage (closer to AREF) the closer the object is.
 // NOTE: The measured voltage will probably not exceed 3.3 volts.
 // Every second, print the averaged voltage value
 // (averaged over 20 samples).
+
+
+if (version >= 'v0.6.1') {
+    console.log('mraa version (' + version + ') ok');
+}
+else {
+    console.log('meaa version(' + version + ') is old - this code may not work');
+}
+
+if (useUpmVersion) {
+    useUpm();
+}
+else {
+    useLcd();
+}
+
 var myInterval = setInterval(function()
 {
 	console.log("AREF: " + GP2Y0A_AREF + 
@@ -46,29 +63,6 @@ process.on('SIGINT', function()
 	process.exit(0);
 });
 
-
-
-
-var version = mraa.getVersion();
-
-if (version >= 'v0.6.1') {
-    console.log('mraa version (' + version + ') ok');
-}
-else {
-    console.log('meaa version(' + version + ') is old - this code may not work');
-}
-
-if (useUpmVersion) {
-    useUpm();
-}
-else {
-    useLcd();
-}
-
-/**
- * Rotate through a color pallette and display the
- * color of the background as text
- */
 function rotateColors(display) {
     var red = 0;
     var green = 0;

@@ -15,8 +15,8 @@
         "name": "icon.png"
       },
       "main.js": {
-        "previousModTime": 1449818686983,
-        "modified": 1449818686983,
+        "previousModTime": 1449872011268,
+        "modified": 1449872011268,
         "seen": true,
         "name": "main.js"
       },
@@ -27,8 +27,8 @@
         "name": "MesaInteractiva.xdk"
       },
       "MesaInteractiva.xdke": {
-        "previousModTime": 1449818612964,
-        "modified": 1449818612964,
+        "previousModTime": 1449818687530,
+        "modified": 1449818687530,
         "seen": true,
         "name": "MesaInteractiva.xdke"
       },
@@ -39,8 +39,8 @@
         "name": "package.json"
       },
       "README.md": {
-        "previousModTime": 1449815893089,
-        "modified": 1449815893089,
+        "previousModTime": 1449869495384,
+        "modified": 1449869495384,
         "seen": true,
         "name": "README.md"
       },
@@ -49,11 +49,35 @@
         "modified": 1449815893400,
         "seen": true,
         "name": "xdk/project-info.json"
+      },
+      ".gitattributes": {
+        "previousModTime": 1449868904218,
+        "modified": 1449868904218,
+        "seen": true,
+        "name": ".gitattributes"
+      },
+      ".gitignore": {
+        "previousModTime": 1449868904257,
+        "modified": 1449868904257,
+        "seen": true,
+        "name": ".gitignore"
       }
     },
     "boardFileStatus": {
+      "icon.png": {
+        "previousModTime": 1449872011941
+      },
       "main.js": {
-        "previousModTime": 1449818687470
+        "previousModTime": 1449872011941
+      },
+      "package.json": {
+        "previousModTime": 1449872011941
+      },
+      "README.md": {
+        "previousModTime": 1449872011941
+      },
+      "xdk/project-info.json": {
+        "previousModTime": 1449872011941
       }
     }
   }
