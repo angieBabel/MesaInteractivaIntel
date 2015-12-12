@@ -26,7 +26,37 @@ var valor4=0;
 var valor5=0;
 
 //Leds
-var
+var led0= new mraa.Gpio(2);
+var led1= new mraa.Gpio(3);
+var led2= new mraa.Gpio(4);
+var led3= new mraa.Gpio(5);
+var led4= new mraa.Gpio(6);
+var led5= new mraa.Gpio(7);
+
+//Establewcer dirección
+led0.dir(mraa.DIR_OUT);
+led1.dir(mraa.DIR_OUT);
+led2.dir(mraa.DIR_OUT);
+led3.dir(mraa.DIR_OUT);
+led4.dir(mraa.DIR_OUT);
+led5.dir(mraa.DIR_OUT);
+
+
+var ledState = true; //Boolean to hold the state of Led
+
+periodicActivity(); //call the periodicActivity function
+
+function periodicActivity()
+{
+    led0.write(ledState?1:0);
+    led1.write(ledState?1:0);
+    led2.write(ledState?1:0);
+    led3.write(ledState?1:0);
+    led4.write(ledState?1:0);
+    led5.write(ledState?1:0);
+  ledState = !ledState; //invert the ledState
+  setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
+}
 
 
 if (version >= 'v0.6.1') {
