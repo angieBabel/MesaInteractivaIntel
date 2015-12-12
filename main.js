@@ -29,7 +29,7 @@ var valor5=0;
 var led0= new mraa.Gpio(2);
 var led1= new mraa.Gpio(3);
 var led2= new mraa.Gpio(4);
-var led3= new mraa.Gpio(5);
+var led3= new mraa.Gpio(8);
 var led4= new mraa.Gpio(6);
 var led5= new mraa.Gpio(7);
 
@@ -126,4 +126,37 @@ function useUpm() {
     display.write('Comienza a jugar');
     rotateColors(display);
 }
+
+var upmBuzzer = require("jsupm_buzzer");// Initialize on GPIO 5
+var myBuzzer = new upmBuzzer.Buzzer(5);
+var chords = [];
+chords.push(upmBuzzer.DO);
+chords.push(upmBuzzer.RE);
+chords.push(upmBuzzer.MI);
+chords.push(upmBuzzer.FA);
+chords.push(upmBuzzer.SOL);
+chords.push(upmBuzzer.LA);
+chords.push(upmBuzzer.SI);
+chords.push(upmBuzzer.DO);
+
+var chordIndex = 0;
+
+// Print sensor name
+console.log(myBuzzer.name());
+
+function melody()
+{
+    
+    myBuzzer.playSound(chords[4],1000000);
+    /*if (chords.length != 0)
+    {
+        //Play sound for one second
+        console.log( myBuzzer.playSound(chords[chordIndex], 1000000) );
+        chordIndex++;
+        //Reset the sound to start from the beginning. 
+        if (chordIndex > chords.length - 1)
+			chordIndex = 0;
+    }*/
+}
+setInterval(melody, 100);
 
