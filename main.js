@@ -150,7 +150,7 @@ else {
     console.log('meaa version(' + version + ') is old - this code may not work');
 }
 
-if (useUpmVersion) {
+/*if (useUpmVersion) {
     useUpm();
 }
 else {
@@ -190,7 +190,7 @@ process.on('SIGINT', function()
  * Use the upm library to drive the two line display
  *
  * Note that this does not use the "lcd.js" code at all*/
- 
+/* 
 function useUpm() {
     var lcd = require('jsupm_i2clcd');
     var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
@@ -199,11 +199,11 @@ function useUpm() {
     display.setCursor(1,0);
     display.write('juego 1');
     display.setColor(0, 128, 64);
-    readButtonValue();
+    //readButtonValue();
     
     //rotateColors(display);
 }
-function readButtonValue() {
+/*function readButtonValue() {
     //console.log(button.name() + " value is " + button.value());
     if(button.value()===1){
         nuevoTexto();
@@ -255,7 +255,7 @@ function juego2() {
     display.setCursor(0, 1);
     display.write('Juego 2');
     display.setColor(0, 128, 64);
-}
+}*/
  
 
 
