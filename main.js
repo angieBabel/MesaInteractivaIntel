@@ -92,6 +92,9 @@ function Sensor1()
     valor1=myVolts1.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor1>4.5){ led1.write(1);}
     else{led1.write(0); }
+        console.log("AREF: " + GP2Y0A_AREF + 
+                ", Voltage value (higher means closer): " + 
+                valor1);
     setTimeout(Sensor1,10);
 }
 
@@ -131,13 +134,13 @@ function Sensor5()
     setTimeout(Sensor5,10);
 }
 
-/*//Lectura de leds
+//Lectura de leds
 Sensor0();
 Sensor1();
 Sensor2();
 Sensor3();
 Sensor4();
-Sensor5();*/
+Sensor5();
 
 
 if (version >= 'v0.6.1') {
@@ -181,15 +184,7 @@ process.on('SIGINT', function()
 	process.exit(0);
 });*/
 
-function nuevoTexto() {
-    var lcd = require('jsupm_i2clcd');
-    var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
-    display.setCursor(0, 1);
-    display.write('[1] Juego 1');
-    display.setCursor(1,1);
-    display.write('[2] 2');
-    display.setColor(0, 128, 64);
-}
+
 
 /*
  * Use the upm library to drive the two line display
@@ -202,20 +197,64 @@ function useUpm() {
     display.setCursor(0, 3);
     display.write('Bienvenido');
     display.setCursor(1,0);
-    display.write('Oprime el Boton');
+    display.write('juego 1');
     display.setColor(0, 128, 64);
     readButtonValue();
     
     //rotateColors(display);
 }
 function readButtonValue() {
-    console.log(button.name() + " value is " + button.value());
+    //console.log(button.name() + " value is " + button.value());
     if(button.value()===1){
         nuevoTexto();
     }else{
-        setTimeout(readButtonValue,1000);
+        setTimeout(readButtonValue,100);
     }
     
+}
+
+function nuevoTexto() {
+    var lcd = require('jsupm_i2clcd');
+    var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
+    display.setCursor(0, 1);
+    display.write('[1] Juego 1');
+    display.setCursor(1,1);
+    display.write('[2] 2');
+    display.setColor(0, 128, 64);
+    leer();
+}
+ 
+function leer() {
+    //console.log(button.name() + " value is " + button.value());
+    if(button.value()===1){
+        valorBoton=valorBoton++;
+        if(valorBoton===1){
+            var lcd = require('jsupm_i2clcd');
+            var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
+            display.setCursor(0, 1);
+            display.write('Juego 1');
+            display.setColor(0, 128, 64);
+            valorBoton=0;
+        }
+        if(valorBoton===1){
+            setTimeout(juego2(),1000);
+            valorBoton=0;
+        }
+        
+        //nuevoTexto();
+    }else{
+        setInterval(juego2(),1000);
+        //setTimeout(readButtonValue,100);
+    }
+    
+}
+
+function juego2() {
+    var lcd = require('jsupm_i2clcd');
+    var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
+    display.setCursor(0, 1);
+    display.write('Juego 2');
+    display.setColor(0, 128, 64);
 }
  
 
