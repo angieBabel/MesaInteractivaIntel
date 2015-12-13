@@ -92,9 +92,6 @@ function Sensor1()
     valor1=myVolts1.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor1>4.5){ led1.write(1);}
     else{led1.write(0); }
-        console.log("AREF: " + GP2Y0A_AREF + 
-                ", Voltage value (higher means closer): " + 
-                valor1);
     setTimeout(Sensor1,10);
 }
 
@@ -122,6 +119,9 @@ function Sensor4()
     valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor4>4){ led4.write(1);}
     else{led4.write(0); }
+            console.log("AREF: " + GP2Y0A_AREF + 
+                ", Voltage value (higher means closer): " + 
+                valor4);
     setTimeout(Sensor4,10);
 }
 
