@@ -4,6 +4,11 @@ var SAMPLES_PER_QUERY = 1;
 
 var IRProximity = require('jsupm_gp2y0a');
 
+//Boton
+var groveSensor = require('jsupm_grove');
+var button = new groveSensor.GroveButton(0);
+var valorBoton=0;
+
 //Lectura de infrarrojos
 var myVolts0 = new IRProximity.GP2Y0A(0);
 var myVolts1 = new IRProximity.GP2Y0A(1);
@@ -39,7 +44,7 @@ var led8= new mraa.Gpio(11);
 var led9= new mraa.Gpio(12);
 var led10= new mraa.Gpio(13);
 
-//Establewcer dirección
+//Establecer dirección
 led0.dir(mraa.DIR_OUT);
 led1.dir(mraa.DIR_OUT);
 led2.dir(mraa.DIR_OUT);
@@ -55,7 +60,10 @@ led10.dir(mraa.DIR_OUT);
 
 var ledState = true; //Boolean to hold the state of Led
 
-//periodicActivity(); //call the periodicActivity function
+//Buzzer
+var upmBuzzer = require("jsupm_buzzer");
+var myBuzzer = new upmBuzzer.Buzzer(5);
+
 
 function periodicActivity()
 {
@@ -68,12 +76,6 @@ function periodicActivity()
     ledState = !ledState; //invert the ledState
   //setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
 }
-Sensor0();
-Sensor1();
-Sensor2();
-Sensor3();
-Sensor4();
-Sensor5();
 
 //Sensor1
 function Sensor0()
@@ -82,7 +84,7 @@ function Sensor0()
     if(valor0>4){ led0.write(1);}
     else{led0.write(0); }
     setTimeout(Sensor0,10);
-};
+}
 
 //Sensor2
 function Sensor1()
@@ -91,7 +93,7 @@ function Sensor1()
     if(valor1>4.5){ led1.write(1);}
     else{led1.write(0); }
     setTimeout(Sensor1,10);
-};
+}
 
 //Sensor3
 function Sensor2()
@@ -100,7 +102,7 @@ function Sensor2()
     if(valor2>4){ led2.write(1);}
     else{led2.write(0); }
     setTimeout(Sensor2,10);
-};
+}
 
 //Sensor4
 function Sensor3()
@@ -109,7 +111,7 @@ function Sensor3()
     if(valor3>4){ led3.write(1);}
     else{led3.write(0); }
     setTimeout(Sensor3,10);
-};
+}
 
 //Sensor5
 function Sensor4()
@@ -117,12 +119,8 @@ function Sensor4()
     valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor4>4){ led4.write(1);}
     else{led4.write(0); }
-    
-    console.log("AREF: " + GP2Y0A_AREF + 
-                ", Voltage value (higher means closer): " + 
-                valor4);
     setTimeout(Sensor4,10);
-};
+}
 
 //Sensor6
 function Sensor5()
@@ -131,7 +129,15 @@ function Sensor5()
     if(valor5>4){ led5.write(1);}
     else{led5.write(0); }
     setTimeout(Sensor5,10);
-};
+}
+
+/*//Lectura de leds
+Sensor0();
+Sensor1();
+Sensor2();
+Sensor3();
+Sensor4();
+Sensor5();*/
 
 
 if (version >= 'v0.6.1') {
@@ -141,14 +147,14 @@ else {
     console.log('meaa version(' + version + ') is old - this code may not work');
 }
 
-/*if (useUpmVersion) {
+if (useUpmVersion) {
     useUpm();
 }
 else {
     useLcd();
-}*/
+}
 
-
+/*
 //Iniciar lectura
 /*ar myInterval = setInterval(function()
 {
@@ -162,7 +168,7 @@ else {
 	console.log("AREF: " + GP2Y0A_AREF + 
                 ", Voltage value (higher means closer): " + 
                 valor0);
-}, 1000);*/
+}, 1000);
 
 // Print message when exiting
 process.on('SIGINT', function()
@@ -173,23 +179,22 @@ process.on('SIGINT', function()
 	IRProximity = null;
 	console.log("Exiting...");
 	process.exit(0);
-});
+});*/
 
-/*function rotateColors(display) {
-    var red = 0;
-    var green = 128;
-    var blue = 64;
-    display.setColor(red, green, blue);
-    setInterval(function() {
-        display.setColor(red, green, blue);
-  // extra padding clears out previous text
-    }, 1000);
+function nuevoTexto() {
+    var lcd = require('jsupm_i2clcd');
+    var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
+    display.setCursor(0, 1);
+    display.write('[1] Juego 1');
+    display.setCursor(1,1);
+    display.write('[2] 2');
+    display.setColor(0, 128, 64);
 }
 
-/**
+/*
  * Use the upm library to drive the two line display
  *
- * Note that this does not use the "lcd.js" code at all
+ * Note that this does not use the "lcd.js" code at all*/
  
 function useUpm() {
     var lcd = require('jsupm_i2clcd');
@@ -197,16 +202,26 @@ function useUpm() {
     display.setCursor(0, 3);
     display.write('Bienvenido');
     display.setCursor(1,0);
-    display.write('Comienza a jugar');
-    rotateColors(display);
-}*/
+    display.write('Oprime el Boton');
+    display.setColor(0, 128, 64);
+    readButtonValue();
+    
+    //rotateColors(display);
+}
+function readButtonValue() {
+    console.log(button.name() + " value is " + button.value());
+    if(button.value()===1){
+        nuevoTexto();
+    }else{
+        setTimeout(readButtonValue,1000);
+    }
+    
+}
  
-//Buzzer
-var upmBuzzer = require("jsupm_buzzer");// Initialize on GPIO 5
-var myBuzzer = new upmBuzzer.Buzzer(5);
+
 
 //cada segundo
-function melodyDjuego ()
+/*function melodyDjuego ()
 { 
     myBuzzer.playSound(upmBuzzer.FA,100000); 
 }
@@ -218,7 +233,7 @@ function melodySfinal()
     myBuzzer.playSound(upmBuzzer.FA,100000); 
 }
 //mandar llamar
-setInterval(melodySfinal, 100); //cada segundo
+setInterval(melodySfinal, 100); //cada segundo*/
 
 
 /*var groveSensor = require('jsupm_grove');//Boton
