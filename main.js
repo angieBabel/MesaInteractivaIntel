@@ -29,9 +29,15 @@ var valor5=0;
 var led0= new mraa.Gpio(2);
 var led1= new mraa.Gpio(3);
 var led2= new mraa.Gpio(4);
-var led3= new mraa.Gpio(8);
-var led4= new mraa.Gpio(6);
-var led5= new mraa.Gpio(7);
+var led3= new mraa.Gpio(6);
+var led4= new mraa.Gpio(7);
+var led5= new mraa.Gpio(8);
+//Psrte 2
+var led6= new mraa.Gpio(9);
+var led7= new mraa.Gpio(10);
+var led8= new mraa.Gpio(11);
+var led9= new mraa.Gpio(12);
+var led10= new mraa.Gpio(13);
 
 //Establewcer dirección
 led0.dir(mraa.DIR_OUT);
@@ -40,7 +46,11 @@ led2.dir(mraa.DIR_OUT);
 led3.dir(mraa.DIR_OUT);
 led4.dir(mraa.DIR_OUT);
 led5.dir(mraa.DIR_OUT);
-
+led6.dir(mraa.DIR_OUT);
+led7.dir(mraa.DIR_OUT);
+led8.dir(mraa.DIR_OUT);
+led9.dir(mraa.DIR_OUT);
+led10.dir(mraa.DIR_OUT);
 
 var ledState = true; //Boolean to hold the state of Led
 
@@ -59,6 +69,7 @@ function periodicActivity()
 }
 
 
+
 if (version >= 'v0.6.1') {
     console.log('mraa version (' + version + ') ok');
 }
@@ -72,7 +83,6 @@ if (useUpmVersion) {
 else {
     useLcd();
 }
-
 
 
 //Iniciar lectura
@@ -115,8 +125,8 @@ function rotateColors(display) {
 /**
  * Use the upm library to drive the two line display
  *
- * Note that this does not use the "lcd.js" code at all
- */
+ * Note that this does not use the "lcd.js" code at all*/
+ 
 function useUpm() {
     var lcd = require('jsupm_i2clcd');
     var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
@@ -126,40 +136,28 @@ function useUpm() {
     display.write('Comienza a jugar');
     rotateColors(display);
 }
-
+ 
+//Buzzer
 var upmBuzzer = require("jsupm_buzzer");// Initialize on GPIO 5
 var myBuzzer = new upmBuzzer.Buzzer(5);
-var chords = [];
-chords.push(upmBuzzer.DO);
-chords.push(upmBuzzer.RE);
-chords.push(upmBuzzer.MI);
-chords.push(upmBuzzer.FA);
-chords.push(upmBuzzer.SOL);
-chords.push(upmBuzzer.LA);
-chords.push(upmBuzzer.SI);
-chords.push(upmBuzzer.DO);
 
-var chordIndex = 0;
-
-// Print sensor name
-console.log(myBuzzer.name());
-
-function melody()
-{
-    
-    myBuzzer.playSound(chords[4],1000000);
-    /*if (chords.length != 0)
-    {
-        //Play sound for one second
-        console.log( myBuzzer.playSound(chords[chordIndex], 1000000) );
-        chordIndex++;
-        //Reset the sound to start from the beginning. 
-        if (chordIndex > chords.length - 1)
-			chordIndex = 0;
-    }*/
+//cada segundo
+function melodyDjuego ()
+{ 
+    myBuzzer.playSound(upmBuzzer.FA,100000); 
 }
-setInterval(melody, 100);
-var groveSensor = require('jsupm_grove');
+//mandar llamar
+setInterval(melodyDjuego, 1000); 
+//Sonido final
+function melodySfinal() 
+{ 
+    myBuzzer.playSound(upmBuzzer.FA,100000); 
+}
+//mandar llamar
+setInterval(melodySfinal, 100); //cada segundo
+
+
+var groveSensor = require('jsupm_grove');//Boton
 
 // Create the button object using GPIO pin 0
 var button = new groveSensor.GroveButton(0);
