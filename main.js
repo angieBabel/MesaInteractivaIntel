@@ -67,22 +67,65 @@ var myBuzzer = new upmBuzzer.Buzzer(5);
 
 function periodicActivity()
 {
-    led0.write(ledState?1:0);
-    led1.write(ledState?1:0);
-    led2.write(ledState?1:0);
-    led3.write(ledState?1:0);
-    led4.write(ledState?1:0);
-    led5.write(ledState?1:0);
+    led6.write(ledState?1:0);
+    led7.write(ledState?1:0);
+    led8.write(ledState?1:0);
+    led9.write(ledState?1:0);
+    led10.write(ledState?1:0);
     ledState = !ledState; //invert the ledState
-  //setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
+  setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
 }
+
+function secuence(){
+    led6.write(1);
+    setInterval(function(){
+        led6.write(0);
+        led7.write(1)
+    },100);
+    led7.write(0);
+    setInterval(function(){
+        led8.write(1)
+    },200);
+    setTimeout(secuence,400);
+}
+
+
+function sL0(){
+    led6.write(ledState?1:0);
+    ledState=!ledState;
+    sL1();
+    setTimeout(sL0,4000);
+}
+function sL1(){
+    led7.write(ledState?1:0);
+    ledState=!ledState;
+    sL2();
+    setTimeout(sL0,1000);
+}
+function sL2(){
+    led8.write(ledState?1:0);
+    ledState=!ledState;
+    setTimeout(sL0,2000);
+}
+
+//secuence();
+
 
 //Sensor1
 function Sensor0()
 {
     valor0=myVolts0.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    if(valor0>4){ led0.write(1);}
-    else{led0.write(0); }
+    if(valor0>4){ 
+        led0.write(1);
+    }
+    else{
+        led0.write(0);
+        /*led6.write(0);
+        led7.write(0);
+        led8.write(0);
+        led9.write(0);
+        led10.write(0);*/
+    }
     setTimeout(Sensor0,10);
 }
 
@@ -90,8 +133,17 @@ function Sensor0()
 function Sensor1()
 {
     valor1=myVolts1.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    if(valor1>4.5){ led1.write(1);}
-    else{led1.write(0); }
+    if(valor1>4.5){ 
+        led1.write(1);
+    }
+    else{
+        led1.write(0); 
+        /*led6.write(0);
+        led7.write(0);
+        led8.write(0);
+        led9.write(0);
+        led10.write(0);*/
+    }
     setTimeout(Sensor1,10);
 }
 
@@ -99,8 +151,17 @@ function Sensor1()
 function Sensor2()
 {
     valor2=myVolts2.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    if(valor2>4){ led2.write(1);}
-    else{led2.write(0); }
+    if(valor2>4){ 
+        led2.write(1);
+    }
+    else{
+        led2.write(0);
+        /*led6.write(0);
+        led7.write(0);
+        led8.write(0);
+        led9.write(0);
+        led10.write(0);*/
+    }
     setTimeout(Sensor2,10);
 }
 
@@ -108,8 +169,17 @@ function Sensor2()
 function Sensor3()
 {
     valor3=myVolts3.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    if(valor3>4){ led3.write(1);}
-    else{led3.write(0); }
+    if(valor3>4){ 
+        led3.write(1);
+    }
+    else{
+        led3.write(0); 
+        /*led6.write(0);
+        led7.write(0);
+        led8.write(0);
+        led9.write(0);
+        led10.write(0);*/
+    }
     setTimeout(Sensor3,10);
 }
 
@@ -117,11 +187,17 @@ function Sensor3()
 function Sensor4()
 {
     valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    if(valor4>4){ led4.write(1);}
-    else{led4.write(0); }
-            console.log("AREF: " + GP2Y0A_AREF + 
-                ", Voltage value (higher means closer): " + 
-                valor4);
+    if(valor4>4){
+        led4.write(1);
+    }
+    else{
+        led4.write(0); 
+        /*led6.write(0);
+        led7.write(0);
+        led8.write(0);
+        led9.write(0);
+        led10.write(0);*/
+    }
     setTimeout(Sensor4,10);
 }
 
@@ -129,8 +205,19 @@ function Sensor4()
 function Sensor5()
 {
     valor5=myVolts5.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    if(valor5>4){ led5.write(1);}
-    else{led5.write(0); }
+    if(valor5>4){ 
+        led5.write(1);
+    }
+    else{
+        led5.write(0); 
+        /*led6.write(0);
+        led7.write(0);
+        led8.write(0);
+        led9.write(0);
+        led10.write(0);*/
+    }console.log("AREF: " + GP2Y0A_AREF + 
+                ", Voltage value (higher means closer): " + 
+                valor5);
     setTimeout(Sensor5,10);
 }
 
@@ -150,7 +237,7 @@ else {
     console.log('meaa version(' + version + ') is old - this code may not work');
 }
 
-/*if (useUpmVersion) {
+if (useUpmVersion) {
     useUpm();
 }
 else {
@@ -190,22 +277,22 @@ process.on('SIGINT', function()
  * Use the upm library to drive the two line display
  *
  * Note that this does not use the "lcd.js" code at all*/
-/* 
+
+ 
 function useUpm() {
     var lcd = require('jsupm_i2clcd');
     var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
     display.setCursor(0, 3);
     display.write('Bienvenido');
     display.setCursor(1,0);
-    display.write('juego 1');
+    display.write('Comienza a jugar');
     display.setColor(0, 128, 64);
-    //readButtonValue();
-    
-    //rotateColors(display);
+    readButtonValue();
 }
-/*function readButtonValue() {
+function readButtonValue() {
     //console.log(button.name() + " value is " + button.value());
     if(button.value()===1){
+        myBuzzer.playSound(upmBuzzer.FA,100000); 
         nuevoTexto();
     }else{
         setTimeout(readButtonValue,100);
@@ -216,47 +303,17 @@ function useUpm() {
 function nuevoTexto() {
     var lcd = require('jsupm_i2clcd');
     var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
-    display.setCursor(0, 1);
-    display.write('[1] Juego 1');
-    display.setCursor(1,1);
-    display.write('[2] 2');
+    display.setCursor(0, 0);
+    display.write('Tapa cada uno de');
+    display.setCursor(1,0);
+    display.write('orificios');
     display.setColor(0, 128, 64);
-    leer();
-}
- 
-function leer() {
-    //console.log(button.name() + " value is " + button.value());
-    if(button.value()===1){
-        valorBoton=valorBoton++;
-        if(valorBoton===1){
-            var lcd = require('jsupm_i2clcd');
-            var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
-            display.setCursor(0, 1);
-            display.write('Juego 1');
-            display.setColor(0, 128, 64);
-            valorBoton=0;
-        }
-        if(valorBoton===1){
-            setTimeout(juego2(),1000);
-            valorBoton=0;
-        }
-        
-        //nuevoTexto();
-    }else{
-        setInterval(juego2(),1000);
-        //setTimeout(readButtonValue,100);
-    }
-    
+    setInterval(function () { 
+        myBuzzer.playSound(upmBuzzer.FA,100000); 
+    }, 1000);
 }
 
-function juego2() {
-    var lcd = require('jsupm_i2clcd');
-    var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
-    display.setCursor(0, 1);
-    display.write('Juego 2');
-    display.setColor(0, 128, 64);
-}*/
- 
+
 
 
 //cada segundo

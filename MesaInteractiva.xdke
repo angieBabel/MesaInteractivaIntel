@@ -15,8 +15,8 @@
         "name": "icon.png"
       },
       "main.js": {
-        "previousModTime": 1450040260163,
-        "modified": 1450040260163,
+        "previousModTime": 1450063689630,
+        "modified": 1450063689630,
         "seen": true,
         "name": "main.js"
       },
@@ -27,8 +27,8 @@
         "name": "MesaInteractiva.xdk"
       },
       "MesaInteractiva.xdke": {
-        "previousModTime": 1450040260950,
-        "modified": 1450040260950,
+        "previousModTime": 1450063560372,
+        "modified": 1450063560372,
         "seen": true,
         "name": "MesaInteractiva.xdke"
       },
@@ -63,6 +63,10 @@
         "name": ".gitignore"
       }
     },
-    "boardFileStatus": {}
+    "boardFileStatus": {
+      "main.js": {
+        "previousModTime": 1450063693482
+      }
+    }
   }
 }
