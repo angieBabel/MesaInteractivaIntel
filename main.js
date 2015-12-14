@@ -60,6 +60,7 @@ led10.dir(mraa.DIR_OUT);
 
 var ledState = true; //Boolean to hold the state of Led
 
+
 //Buzzer
 var upmBuzzer = require("jsupm_buzzer");
 var myBuzzer = new upmBuzzer.Buzzer(5);
@@ -76,37 +77,7 @@ function periodicActivity()
   setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
 }
 
-function secuence(){
-    led6.write(1);
-    setInterval(function(){
-        led6.write(0);
-        led7.write(1)
-    },100);
-    led7.write(0);
-    setInterval(function(){
-        led8.write(1)
-    },200);
-    setTimeout(secuence,400);
-}
 
-
-function sL0(){
-    led6.write(ledState?1:0);
-    ledState=!ledState;
-    sL1();
-    setTimeout(sL0,4000);
-}
-function sL1(){
-    led7.write(ledState?1:0);
-    ledState=!ledState;
-    sL2();
-    setTimeout(sL0,1000);
-}
-function sL2(){
-    led8.write(ledState?1:0);
-    ledState=!ledState;
-    setTimeout(sL0,2000);
-}
 
 //secuence();
 
@@ -117,16 +88,44 @@ function Sensor0()
     valor0=myVolts0.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor0>4){ 
         led0.write(1);
+        setTimeout(function(){
+            led6.write(1);
+        },100);
+        setTimeout(function(){
+            led7.write(1);
+            led6.write(0);
+        },200);
+        setTimeout(function(){
+            led8.write(1);
+            led7.write(0);
+        },300);
+        setTimeout(function(){
+            led9.write(1);
+            led8.write(0);
+        },400);
+        setTimeout(function(){
+            led10.write(1);
+            led9.write(0);
+        },500);
+        setTimeout(function(){
+            led6.write(0);
+            led7.write(0);
+            led8.write(0);
+            led9.write(0);
+            led10.write(0);
+            Sensor0();
+        },600);
     }
     else{
         led0.write(0);
-        /*led6.write(0);
+        led6.write(0);
         led7.write(0);
         led8.write(0);
         led9.write(0);
-        led10.write(0);*/
+        led10.write(0);
+        setTimeout(Sensor0,10);
     }
-    setTimeout(Sensor0,10);
+    //setTimeout(Sensor0,10);
 }
 
 //Sensor2
@@ -135,16 +134,44 @@ function Sensor1()
     valor1=myVolts1.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor1>4.5){ 
         led1.write(1);
+        setTimeout(function(){
+            led6.write(1)},100);
+        setTimeout(function(){
+            led8.write(1);
+            led6.write(0);
+        },200);
+        setTimeout(function(){
+            led10.write(1);
+            led8.write(0);
+        },300);
+        setTimeout(function(){
+            led7.write(1);
+            led10.write(0);
+        },400);
+        setTimeout(function(){
+            led9.write(1);
+            led7.write(0);
+        },500);
+        setTimeout(function(){
+            led6.write(0);
+            led7.write(0);
+            led8.write(0);
+            led9.write(0);
+            led10.write(0);
+            Sensor1();
+        },600);
+        
     }
     else{
         led1.write(0); 
-        /*led6.write(0);
+        led6.write(0);
         led7.write(0);
         led8.write(0);
         led9.write(0);
-        led10.write(0);*/
+        led10.write(0);
+        setTimeout(Sensor1,10);
     }
-    setTimeout(Sensor1,10);
+    
 }
 
 //Sensor3
@@ -153,16 +180,44 @@ function Sensor2()
     valor2=myVolts2.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor2>4){ 
         led2.write(1);
+        led1.write(1);
+        setTimeout(function(){
+            led6.write(1)},100);
+        setTimeout(function(){
+            led7.write(1);
+            led6.write(0);
+        },200);
+        setTimeout(function(){
+            led8.write(1);
+            led7.write(0);
+        },300);
+        setTimeout(function(){
+            led9.write(1);
+            led8.write(0);
+        },400);
+        setTimeout(function(){
+            led9.write(1);
+            led10.write(0);
+        },500);
+        setTimeout(function(){
+            led6.write(0);
+            led7.write(0);
+            led8.write(0);
+            led9.write(0);
+            led10.write(0);
+            Sensor2();
+        },600);
     }
     else{
         led2.write(0);
-        /*led6.write(0);
+        led6.write(0);
         led7.write(0);
         led8.write(0);
         led9.write(0);
-        led10.write(0);*/
+        led10.write(0);
+        setTimeout(Sensor2,10);
     }
-    setTimeout(Sensor2,10);
+    
 }
 
 //Sensor4
@@ -171,16 +226,44 @@ function Sensor3()
     valor3=myVolts3.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor3>4){ 
         led3.write(1);
+        led1.write(1);
+        setTimeout(function(){
+            led10.write(1)},100);
+        setTimeout(function(){
+            led9.write(1);
+            led10.write(0);
+        },200);
+        setTimeout(function(){
+            led8.write(1);
+            led9.write(0);
+        },300);
+        setTimeout(function(){
+            led7.write(1);
+            led8.write(0);
+        },400);
+        setTimeout(function(){
+            led6.write(1);
+            led7.write(0);
+        },500);
+        setTimeout(function(){
+            led6.write(0);
+            led7.write(0);
+            led8.write(0);
+            led9.write(0);
+            led10.write(0);
+            Sensor3();
+        },600);
     }
     else{
         led3.write(0); 
-        /*led6.write(0);
+        led6.write(0);
         led7.write(0);
         led8.write(0);
         led9.write(0);
-        led10.write(0);*/
+        led10.write(0);
+        setTimeout(Sensor3,10);
     }
-    setTimeout(Sensor3,10);
+    
 }
 
 //Sensor5
@@ -189,16 +272,48 @@ function Sensor4()
     valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor4>4){
         led4.write(1);
+        led1.write(1);
+        setTimeout(function(){
+            led6.write(1)},100);
+        setTimeout(function(){
+            led7.write(1);
+            led6.write(0);
+        },200);
+        setTimeout(function(){
+            led8.write(1);
+            led7.write(0);
+        },300);
+        setTimeout(function(){
+            led10.write(1);
+            led8.write(0);
+        },400);
+        setTimeout(function(){
+            led9.write(1);
+            led10.write(0);
+        },500);
+        setTimeout(function(){
+            led8.write(1);
+            led9.write(0);
+        },600);
+        setTimeout(function(){
+            led6.write(0);
+            led7.write(0);
+            led8.write(0);
+            led9.write(0);
+            led10.write(0);
+            Sensor4();
+        },700);
     }
     else{
         led4.write(0); 
-        /*led6.write(0);
+        led6.write(0);
         led7.write(0);
         led8.write(0);
         led9.write(0);
-        led10.write(0);*/
+        led10.write(0);
+        setTimeout(Sensor4,10);
     }
-    setTimeout(Sensor4,10);
+    
 }
 
 //Sensor6
@@ -207,27 +322,45 @@ function Sensor5()
     valor5=myVolts5.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor5>4){ 
         led5.write(1);
+        led1.write(1);
+        setTimeout(function(){
+            led6.write(1)},100);
+        setTimeout(function(){
+            led7.write(1);
+        },200);
+        setTimeout(function(){
+            led8.write(1);
+        },300);
+        setTimeout(function(){
+            led9.write(1);
+
+        },400);
+        setTimeout(function(){
+            led9.write(1);
+
+        },500);
+        setTimeout(function(){
+            led6.write(0);
+            led7.write(0);
+            led8.write(0);
+            led9.write(0);
+            led10.write(0);
+            Sensor5();
+        },600);
     }
     else{
         led5.write(0); 
-        /*led6.write(0);
+        led6.write(0);
         led7.write(0);
         led8.write(0);
         led9.write(0);
-        led10.write(0);*/
-    }console.log("AREF: " + GP2Y0A_AREF + 
-                ", Voltage value (higher means closer): " + 
-                valor5);
-    setTimeout(Sensor5,10);
+        led10.write(0);
+        setTimeout(Sensor5,10);
+    }
+    
 }
 
 //Lectura de leds
-Sensor0();
-Sensor1();
-Sensor2();
-Sensor3();
-Sensor4();
-Sensor5();
 
 
 if (version >= 'v0.6.1') {
@@ -308,10 +441,21 @@ function nuevoTexto() {
     display.setCursor(1,0);
     display.write('orificios');
     display.setColor(0, 128, 64);
+    leer();
     setInterval(function () { 
-        myBuzzer.playSound(upmBuzzer.FA,100000); 
+        myBuzzer.playSound(upmBuzzer.FA,100000);      
     }, 1000);
 }
+
+function leer(){
+    Sensor0();
+    Sensor1();
+    Sensor2();
+    Sensor3();
+    Sensor4();
+    Sensor5();
+}
+
 
 
 
