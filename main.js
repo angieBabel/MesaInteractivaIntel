@@ -66,22 +66,6 @@ var upmBuzzer = require("jsupm_buzzer");
 var myBuzzer = new upmBuzzer.Buzzer(5);
 
 
-function periodicActivity()
-{
-    led6.write(ledState?1:0);
-    led7.write(ledState?1:0);
-    led8.write(ledState?1:0);
-    led9.write(ledState?1:0);
-    led10.write(ledState?1:0);
-    ledState = !ledState; //invert the ledState
-  setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
-}
-
-
-
-//secuence();
-
-
 //Sensor1
 function Sensor0()
 {
@@ -125,7 +109,6 @@ function Sensor0()
         led10.write(0);
         setTimeout(Sensor0,10);
     }
-    //setTimeout(Sensor0,10);
 }
 
 //Sensor2
@@ -180,7 +163,6 @@ function Sensor2()
     valor2=myVolts2.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor2>4){ 
         led2.write(1);
-        led1.write(1);
         setTimeout(function(){
             led6.write(1)},100);
         setTimeout(function(){
@@ -226,7 +208,6 @@ function Sensor3()
     valor3=myVolts3.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor3>4){ 
         led3.write(1);
-        led1.write(1);
         setTimeout(function(){
             led10.write(1)},100);
         setTimeout(function(){
@@ -272,7 +253,6 @@ function Sensor4()
     valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor4>4){
         led4.write(1);
-        led1.write(1);
         setTimeout(function(){
             led6.write(1)},100);
         setTimeout(function(){
@@ -322,7 +302,6 @@ function Sensor5()
     valor5=myVolts5.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
     if(valor5>4){ 
         led5.write(1);
-        led1.write(1);
         setTimeout(function(){
             led6.write(1)},100);
         setTimeout(function(){
@@ -360,8 +339,14 @@ function Sensor5()
     
 }
 
-//Lectura de leds
+Sensor0();
+Sensor1();
+Sensor2();
+Sensor3();
+Sensor4();
+Sensor5();
 
+//Lectura de leds
 
 if (version >= 'v0.6.1') {
     console.log('mraa version (' + version + ') ok');
@@ -370,39 +355,14 @@ else {
     console.log('meaa version(' + version + ') is old - this code may not work');
 }
 
-if (useUpmVersion) {
+/*if (useUpmVersion) {
     useUpm();
 }
 else {
     useLcd();
-}
+}*/
 
-/*
-//Iniciar lectura
-/*ar myInterval = setInterval(function()
-{
-    valor0=myVolts0.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    /*valor1=myVolts1.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    valor2=myVolts2.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    valor3=myVolts3.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
-    valor5=myVolts5.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
 
-	console.log("AREF: " + GP2Y0A_AREF + 
-                ", Voltage value (higher means closer): " + 
-                valor0);
-}, 1000);
-
-// Print message when exiting
-process.on('SIGINT', function()
-{
-	clearInterval(myInterval);
-	myVolts = null;
-	IRProximity.cleanUp();
-	IRProximity = null;
-	console.log("Exiting...");
-	process.exit(0);
-});*/
 
 
 
@@ -412,7 +372,8 @@ process.on('SIGINT', function()
  * Note that this does not use the "lcd.js" code at all*/
 
  
-function useUpm() {
+readButtonValue();
+/*function useUpm() {
     var lcd = require('jsupm_i2clcd');
     var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
     display.setCursor(0, 3);
@@ -420,13 +381,15 @@ function useUpm() {
     display.setCursor(1,0);
     display.write('Comienza a jugar');
     display.setColor(0, 128, 64);
+    //leer();
     readButtonValue();
-}
+}*/
 function readButtonValue() {
     //console.log(button.name() + " value is " + button.value());
     if(button.value()===1){
         myBuzzer.playSound(upmBuzzer.FA,100000); 
-        nuevoTexto();
+        juego();
+        //nuevoTexto();
     }else{
         setTimeout(readButtonValue,100);
     }
@@ -441,7 +404,7 @@ function nuevoTexto() {
     display.setCursor(1,0);
     display.write('orificios');
     display.setColor(0, 128, 64);
-    leer();
+    //leer();
     setInterval(function () { 
         myBuzzer.playSound(upmBuzzer.FA,100000);      
     }, 1000);
@@ -456,34 +419,113 @@ function leer(){
     Sensor5();
 }
 
+var ledState=true;
 
-
-
-
-//cada segundo
-/*function melodyDjuego ()
-{ 
-    myBuzzer.playSound(upmBuzzer.FA,100000); 
+function juego()
+{
+   
+    setTimeout(function(){
+        led5.write(1);    
+    },1000);
+    setTimeout(function(){
+        led0.write(1);
+    },2000);
+    setTimeout(function(){
+        led3.write(1);
+    },3000);
+    setTimeout(function(){
+        led2.write(1);
+    },4000);
+    setTimeout(function(){
+        led4.write(1);
+    },5000);
+    setTimeout(function(){
+        led1.write(1);
+    },6000);
+    setTimeout(function(){
+            led0.write(0);
+            led1.write(0);
+            led2.write(0);
+            led3.write(0);
+            led4.write(0);
+            led5.write(0);
+            jugar();
+    },8000);
 }
-//mandar llamar
-setInterval(melodyDjuego, 1000); 
-//Sonido final
-function melodySfinal() 
-{ 
-    myBuzzer.playSound(upmBuzzer.FA,100000); 
-}
-//mandar llamar
-setInterval(melodySfinal, 100); //cada segundo*/
-
-
-/*var groveSensor = require('jsupm_grove');//Boton
-
-// Create the button object using GPIO pin 0
-var button = new groveSensor.GroveButton(0);
-
-// Read the input and print, waiting one second between readings
-function readButtonValue() {
-    console.log(button.name() + " value is " + button.value());
-}
-setInterval(readButtonValue, 1000);*/
-
+ function jugar(){
+    led5.write(1);
+    setTimeout(function(){
+        led5.write(0);
+        setTimeout(function(){
+            valor5=myVolts5.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
+            if(valor5>4){
+                myBuzzer.playSound(upmBuzzer.FA,100000);
+            }else{
+                myBuzzer.playSound(upmBuzzer.DO,100000);
+            } 
+        },1500);
+                
+    },1000);
+    setTimeout(function(){
+        setTimeout(function(){
+            valor0=myVolts0.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
+            if(valor0 >4){
+                myBuzzer.playSound(upmBuzzer.FA,100000);
+            }else{
+                myBuzzer.playSound(upmBuzzer.DO,100000);
+            }
+        },2500);
+    },2000);
+    setTimeout(function(){
+        led3.write(1);
+        setTimeout(function(){
+            valor3=myVolts3.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
+            if(valor3>4){
+                myBuzzer.playSound(upmBuzzer.FA,100000);
+            }else{
+                myBuzzer.playSound(upmBuzzer.DO,100000);
+            }
+        },3500);
+    },3000);
+    setTimeout(function(){
+        setTimeout(function(){
+            valor2=myVolts2.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
+            if(valor2>4){
+                myBuzzer.playSound(upmBuzzer.FA,100000);
+            }else{
+                myBuzzer.playSound(upmBuzzer.DO,100000);
+            }
+        },4500);
+    },4000);
+    setTimeout(function(){
+        setTimeout(function(){
+            valor4=myVolts4.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
+            if(valor4>4){
+                myBuzzer.playSound(upmBuzzer.FA,100000);
+            }else{
+                myBuzzer.playSound(upmBuzzer.DO,100000);
+            }
+        },5500);
+    },5000);
+    setTimeout(function(){
+        led1.write(1);
+        setTimeout(function(){
+            valor1=myVolts1.value(GP2Y0A_AREF, SAMPLES_PER_QUERY);
+            if(valor1>4.5){
+                myBuzzer.playSound(upmBuzzer.FA,100000);
+            }else{
+                myBuzzer.playSound(upmBuzzer.DO,100000);
+            }
+        },6500);
+    },6000);
+    setTimeout(function(){
+            led0.write(0);
+            led1.write(0);
+            led2.write(0);
+            led3.write(0);
+            led4.write(0);
+            led5.write(0);
+        readButtonValue();
+    },7000);
+     
+ }
